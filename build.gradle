@@ -23,6 +23,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.0.5'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc:3.0.5'
     implementation 'org.flywaydb:flyway-core:9.5.1'
+    implementation 'org.telegram:telegrambots:6.5.0'
     compileOnly 'org.projectlombok:lombok:1.18.26'
     runtimeOnly 'org.postgresql:postgresql:42.5.4'
     annotationProcessor 'org.projectlombok:lombok:1.18.26'
