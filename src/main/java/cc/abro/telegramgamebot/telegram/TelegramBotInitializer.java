@@ -1,4 +1,4 @@
-package cc.abro.telegramgamebot.bot;
+package cc.abro.telegramgamebot.telegram;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -8,8 +8,8 @@ import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
-@Slf4j
 @Component
+@Slf4j
 public class TelegramBotInitializer {
 
     private final TelegramBot telegramBot;
@@ -23,6 +23,7 @@ public class TelegramBotInitializer {
         try {
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
             telegramBotsApi.registerBot(telegramBot);
+            telegramBot.init();
         } catch (TelegramApiException e) {
             log.error(e.getMessage());
         }

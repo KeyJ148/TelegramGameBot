@@ -1,4 +1,4 @@
-package cc.abro.telegramgamebot.bot;
+package cc.abro.telegramgamebot.telegram;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,7 +8,7 @@ import org.telegram.telegrambots.bots.DefaultBotOptions;
 
 @Configuration
 @Data
-public class BotConfiguration {
+public class TelegramBotConfig {
 
     @Value("${telegram.bot.token}")
     private String token;
