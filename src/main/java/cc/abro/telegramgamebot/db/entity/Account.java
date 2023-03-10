@@ -22,6 +22,6 @@ public class Account {
 
     private long telegramUserId;
 
-    @OneToOne(cascade = CascadeType.ALL, optional = false)
+    @OneToOne(optional = false)
     private Player player;
 }

@@ -1,6 +1,6 @@
 package cc.abro.telegramgamebot.telegram;
 
-import cc.abro.telegramgamebot.services.TelegramReceiveService;
+import cc.abro.telegramgamebot.services.TelegramReceiveMessagesService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
@@ -23,14 +23,14 @@ import java.util.List;
 public class TelegramBotImpl extends TelegramLongPollingBot implements TelegramBot {
 
     private final TelegramBotConfig telegramBotConfig;
-    private final TelegramReceiveService telegramReceiveService;
+    private final TelegramReceiveMessagesService telegramReceiveMessagesService;
 
     public TelegramBotImpl(DefaultBotOptions defaultBotOptions,
                            TelegramBotConfig telegramBotConfig,
-                           TelegramReceiveService telegramReceiveService) {
+                           TelegramReceiveMessagesService telegramReceiveMessagesService) {
         super(defaultBotOptions, telegramBotConfig.getToken());
         this.telegramBotConfig = telegramBotConfig;
-        this.telegramReceiveService = telegramReceiveService;
+        this.telegramReceiveMessagesService = telegramReceiveMessagesService;
     }
 
     public void init() {
@@ -92,7 +92,7 @@ public class TelegramBotImpl extends TelegramLongPollingBot implements TelegramB
             return;
         }
 
-        telegramReceiveService.receiveMessage(receivedText, sender);
+        telegramReceiveMessagesService.receiveMessage(receivedText, sender);
 
 
         SendMessage message = new SendMessage();
