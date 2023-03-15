@@ -1,5 +1,6 @@
 package cc.abro.telegramgamebot.db.entity;
 
+import cc.abro.telegramgamebot.services.gamestates.GameState;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +22,7 @@ public class Account {
     private UUID id;
 
     private long telegramUserId;
+    private GameState state;
 
     @OneToOne(optional = false)
     private Player player;
