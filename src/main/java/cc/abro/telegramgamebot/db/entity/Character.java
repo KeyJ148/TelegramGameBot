@@ -24,4 +24,7 @@ public class Character {
 
     @ManyToOne(optional = false)
     private Player player;
+
+    private String name;
+    private boolean isMainCharacter;
 }
