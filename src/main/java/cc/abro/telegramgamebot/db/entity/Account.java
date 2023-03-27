@@ -23,6 +23,7 @@ public class Account {
 
     private long telegramUserId;
     private GameState state;
+    private String locale;
 
     @OneToOne(optional = false)
     private Player player;

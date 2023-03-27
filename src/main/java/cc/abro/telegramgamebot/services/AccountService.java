@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 public class AccountService {
 
     private final static GameState DEFAULT_GAME_STATE = GameState.NEW_PLAYER;
+    private final static String DEFAULT_LOCALE = "ru";
 
     private final AccountRepository accountRepository;
     private final PlayerRepository playerRepository;
@@ -28,6 +29,7 @@ public class AccountService {
 
             account = Account.builder()
                     .telegramUserId(telegramUserId)
+                    .locale(DEFAULT_LOCALE)
                     .state(DEFAULT_GAME_STATE)
                     .player(player)
                     .build();
