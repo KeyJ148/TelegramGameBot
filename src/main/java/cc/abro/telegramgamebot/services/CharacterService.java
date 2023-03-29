@@ -29,4 +29,8 @@ public class CharacterService {
     public List<Character> getAllCharacters(Player player) {
         return characterRepository.getCharactersByPlayer(player);
     }
+
+    public int getCountCharacters(Player player) {
+        return characterRepository.countCharactersByPlayer(player);
+    }
 }
