@@ -43,15 +43,21 @@ public class GameStateProcessorService {
 
     public TelegramResponse processMessage(Account account, String message) {
         GameState currentGameState = account.getState();
-        if (!serviceByGameState.containsKey(currentGameState)) {
-            log.error("Not found processor for GameState: " + currentGameState);
-            accountService.setGameState(account, GameState.MAIN_MENU);
-            return new TelegramResponse("Произошла неизвестная ошибка. Вы возвращены в меню.",
-                    mainMenuViewService.createMainMenuKeyboard(account));
+
+        GameStateResponse gameStateResponse;
+        try {
+            gameStateResponse = serviceByGameState.get(currentGameState).processMessage(account, message);
+        } catch (RuntimeException e) {
+            log.error("Exception while process GameState: " + currentGameState + ", Account: " + account.getId(), e);
+            gameStateResponse = new GameStateResponse(GameState.MAIN_MENU, "Произошла неизвестная ошибка.",
+                    mainMenuViewService.getMainMenuCharactersView(account));
+        }
+        if (gameStateResponse == null) {
+            return new TelegramResponse("Недопустимый ввод", null);
         }
 
-        GameStateResponse gameStateResponse = serviceByGameState.get(currentGameState).processMessage(account, message);
         accountService.setGameState(account, gameStateResponse.newGameState());
-        return new TelegramResponse(gameStateResponse.textResponse(), gameStateResponse.keyboardResponse());
+        return new TelegramResponse(gameStateResponse.viewResponse().textResponse(),
+                gameStateResponse.viewResponse().keyboardResponse());
     }
 }
