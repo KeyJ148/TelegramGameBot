@@ -50,11 +50,19 @@ public class TelegramReplyKeyboardService {
     }
 
     public ReplyKeyboardMarkup createReplyKeyboardHorizontal(String... buttons) {
-        return createReplyKeyboard(List.of(Arrays.stream(buttons).toList()));
+        return createReplyKeyboardHorizontal(Arrays.stream(buttons).toList());
+    }
+
+    public ReplyKeyboardMarkup createReplyKeyboardHorizontal(List<String> buttons) {
+        return createReplyKeyboard(List.of(buttons.stream().toList()));
     }
 
     public ReplyKeyboardMarkup createReplyKeyboardVertical(String... buttons) {
-        return createReplyKeyboard(Arrays.stream(buttons)
+        return createReplyKeyboardVertical(Arrays.stream(buttons).toList());
+    }
+
+    public ReplyKeyboardMarkup createReplyKeyboardVertical(List<String> buttons) {
+        return createReplyKeyboard(buttons.stream()
                 .map(List::of)
                 .toList()
         );

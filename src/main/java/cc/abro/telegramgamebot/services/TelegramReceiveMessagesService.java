@@ -26,12 +26,12 @@ public class TelegramReceiveMessagesService {
 
     public List<BotApiMethod<?>> receiveMessage(String receivedText, User sender, Chat chat) {
         Account account = accountService.getOrCreateAccount(sender.getId());
-        TelegramResponse gameResponse = gameStateProcessorService.processMessage(account, receivedText);
+        TelegramResponse telegramResponse = gameStateProcessorService.processMessage(account, receivedText);
 
         SendMessage responseMessage = new SendMessage();
         responseMessage.setChatId(chat.getId());
-        responseMessage.setText(gameResponse.textResponse());
-        responseMessage.setReplyMarkup(gameResponse.keyboardResponse());
+        responseMessage.setText(telegramResponse.textResponse());
+        responseMessage.setReplyMarkup(telegramResponse.keyboardResponse());
 
         return List.of(responseMessage);
     }
