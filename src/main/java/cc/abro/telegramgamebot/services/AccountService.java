@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AccountService {
 
-    private final static GameState DEFAULT_GAME_STATE = GameState.NEW_PLAYER;
+    private final static GameState DEFAULT_GAME_STATE = GameState.START;
     private final static String DEFAULT_LOCALE = "ru";
 
     private final AccountRepository accountRepository;
