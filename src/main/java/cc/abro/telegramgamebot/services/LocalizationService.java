@@ -5,7 +5,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import java.util.Locale;
-import java.util.Objects;
 
 @Service
 public class LocalizationService {
@@ -16,11 +15,15 @@ public class LocalizationService {
         this.messageSource = messageSource;
     }
 
-    public String getText(Account account, String code, Objects... args) {
+    public String getText(Account account, String code, Object... args) {
         return messageSource.getMessage("texts." + code, args, Locale.forLanguageTag(account.getLocale()));
     }
 
-    public String getButton(Account account, String code, Objects... args) {
+    public String getButton(Account account, String code, Object... args) {
         return messageSource.getMessage("buttons." + code, args, Locale.forLanguageTag(account.getLocale()));
+    }
+
+    public String getTest(Account account, String code, Object... args) { //TODO
+        return messageSource.getMessage(code, args, Locale.forLanguageTag(account.getLocale()));
     }
 }
