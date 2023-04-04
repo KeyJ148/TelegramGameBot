@@ -1,8 +1,10 @@
 package cc.abro.telegramgamebot.services;
 
-import cc.abro.telegramgamebot.DefaultDataTests;
+import cc.abro.telegramgamebot.DefaultTests;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public abstract class DefaultServiceTests extends DefaultDataTests {
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
+public abstract class DefaultServiceTests extends DefaultTests {
 }

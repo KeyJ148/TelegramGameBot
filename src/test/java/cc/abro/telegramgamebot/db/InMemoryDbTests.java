@@ -1,9 +1,8 @@
 package cc.abro.telegramgamebot.db;
 
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import cc.abro.telegramgamebot.DefaultTests;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
-
-@AutoConfigureTestDatabase(replace = Replace.ANY)
-public abstract class InMemoryDbTests extends DefaultDbTests {
+@DataJpaTest
+public abstract class InMemoryDbTests extends DefaultTests {
 }
