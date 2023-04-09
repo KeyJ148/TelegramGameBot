@@ -16,14 +16,14 @@ public class LocalizationService {
     }
 
     public String getText(Account account, String code, Object... args) {
-        return messageSource.getMessage("texts." + code, args, Locale.forLanguageTag(account.getLocale()));
+        return messageSource.getMessage("text." + code, args, Locale.forLanguageTag(account.getLocale()));
     }
 
     public String getButton(Account account, String code, Object... args) {
-        return messageSource.getMessage("buttons." + code, args, Locale.forLanguageTag(account.getLocale()));
+        return messageSource.getMessage("button." + code, args, Locale.forLanguageTag(account.getLocale()));
     }
 
-    public String getTest(Account account, String code, Object... args) { //TODO
-        return messageSource.getMessage(code, args, Locale.forLanguageTag(account.getLocale()));
+    public String getView(Account account, String code, Object... args) {
+        return messageSource.getMessage("view." + code, args, Locale.forLanguageTag(account.getLocale()));
     }
 }
