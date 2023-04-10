@@ -11,7 +11,7 @@ public class LocalizationConfig {
     @Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasenames("messages/texts", "messages/buttons");
+        messageSource.setBasenames("messages/texts", "messages/buttons", "messages/views"); //TODO to different message sources
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
