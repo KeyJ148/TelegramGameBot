@@ -1,6 +1,7 @@
 package cc.abro.telegramgamebot.services.gamestates;
 
 import cc.abro.telegramgamebot.db.entity.Account;
+import cc.abro.telegramgamebot.services.LocalizationService;
 import cc.abro.telegramgamebot.services.view.MainMenuViewService;
 import org.springframework.stereotype.Service;
 
@@ -8,14 +9,17 @@ import org.springframework.stereotype.Service;
 public class MainMenuCharactersStateService implements GameStateService {
 
     private final MainMenuViewService mainMenuViewService;
+    private final LocalizationService localizationService;
 
-    public MainMenuCharactersStateService(MainMenuViewService mainMenuViewService) {
+    public MainMenuCharactersStateService(MainMenuViewService mainMenuViewService,
+                                          LocalizationService localizationService) {
         this.mainMenuViewService = mainMenuViewService;
+        this.localizationService = localizationService;
     }
 
     @Override
     public GameStateResponse processMessage(Account account, String message) {
-        if (message.equals("Назад")) {
+        if (message.equals(localizationService.getButton(account, "back"))) {
             return new GameStateResponse(GameState.MAIN_MENU, mainMenuViewService.getMainMenuView(account));
         }
         return null;
