@@ -2,6 +2,7 @@ package cc.abro.telegramgamebot.services.gamestates;
 
 import cc.abro.telegramgamebot.db.entity.Account;
 import cc.abro.telegramgamebot.services.CharacterService;
+import cc.abro.telegramgamebot.services.LocalizationService;
 import cc.abro.telegramgamebot.services.view.MainMenuViewService;
 import org.springframework.stereotype.Service;
 
@@ -10,28 +11,34 @@ public class NewPlayerStateService implements GameStateService {
 
     private final CharacterService characterService;
     private final MainMenuViewService mainMenuViewService;
+    private final LocalizationService localizationService;
 
     public NewPlayerStateService(CharacterService characterService,
-                                 MainMenuViewService mainMenuViewService) {
+                                 MainMenuViewService mainMenuViewService,
+                                 LocalizationService localizationService) {
         this.characterService = characterService;
         this.mainMenuViewService = mainMenuViewService;
+        this.localizationService = localizationService;
     }
 
     @Override
-    public GameStateResponse processMessage(Account account, String message) {
-        if (message.isEmpty() || message.isBlank()) {
-            return new GameStateResponse(GameState.NEW_PLAYER, "Имя персонажа не может быть пустым.");
+    public GameStateResponse processMessage(Account account, String nickname) {
+        if (nickname.isEmpty() || nickname.isBlank()) {
+            return new GameStateResponse(GameState.NEW_PLAYER,
+                    localizationService.getText(account, "new_player.error.empty"));
         }
-        if (message.length() > 30) {
-            return new GameStateResponse(GameState.NEW_PLAYER, "Имя персонажа не может быть больше 30 символов.");
+        if (nickname.length() > 30) {
+            return new GameStateResponse(GameState.NEW_PLAYER,
+                    localizationService.getText(account, "new_player.error.too_long"));
         }
-        if (message.contains("/")) {
-            return new GameStateResponse(GameState.NEW_PLAYER, "Имя персонажа не может содержать слэш.");
+        if (nickname.contains("/")) {
+            return new GameStateResponse(GameState.NEW_PLAYER,
+                    localizationService.getText(account, "new_player.error.slash"));
         }
 
-        characterService.createMainCharacter(account.getPlayer(), message);
+        characterService.createMainCharacter(account.getPlayer(), nickname);
         return new GameStateResponse(GameState.MAIN_MENU,
-                "Поздравляю! Вы создали персонажа с именем " + message + ".",
+                localizationService.getText(account, "new_player.success", nickname),
                 mainMenuViewService.getMainMenuView(account));
     }
 
