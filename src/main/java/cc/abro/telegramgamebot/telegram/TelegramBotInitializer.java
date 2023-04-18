@@ -19,10 +19,16 @@ import java.util.List;
 @Profile("prod")
 public class TelegramBotInitializer {
 
-    private final static List<BotCommand> DEFAULT_COMMANDS = List.of( //TODO
-            new BotCommand("/start", "Начать игру"),
-            new BotCommand("/help", "Помощь"),
-            new BotCommand("/settings", "Настройки")
+    public final static String COMMAND_START = "/start";
+    public final static String COMMAND_MENU = "/menu";
+    public final static String COMMAND_HELP = "/help";
+    public final static String COMMAND_SETTINGS = "/settings";
+
+    private final static List<BotCommand> DEFAULT_COMMANDS = List.of(
+            new BotCommand(COMMAND_START, "Game start"),
+            new BotCommand(COMMAND_MENU, "Main menu"),
+            new BotCommand(COMMAND_HELP, "Help"),
+            new BotCommand(COMMAND_SETTINGS, "Settings")
     );
 
     private final TelegramBot telegramBot;
