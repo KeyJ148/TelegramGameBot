@@ -1,13 +1,16 @@
 package cc.abro.telegramgamebot.services.view;
 
 import cc.abro.telegramgamebot.db.entity.Account;
+import cc.abro.telegramgamebot.db.entity.Character;
 import cc.abro.telegramgamebot.services.CharacterService;
 import cc.abro.telegramgamebot.services.LocalizationService;
 import cc.abro.telegramgamebot.services.TelegramReplyKeyboardService;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MainMenuViewService {
@@ -40,7 +43,15 @@ public class MainMenuViewService {
     }
 
     public ViewResponse getMainMenuCharactersView(Account account) {
-        String textResponse = localizationService.getView(account, "character_list");
+        String characterNames = characterService.getAllCharacters(account.getPlayer()).stream()
+                .sorted((c1, c2) ->
+                        Comparator.comparing(Character::isMainCharacter)
+                        .thenComparing(Character::getName)
+                        .compare(c1, c2))
+                .map(Character::getName)
+                .collect(Collectors.joining("\n"));
+        String textResponse = localizationService.getView(account, "character_list", characterNames);
+
         ReplyKeyboard keyboardResponse = telegramReplyKeyboardService.createReplyKeyboardHorizontal(
                 localizationService.getButton(account, "back"));
         return new ViewResponse(textResponse, keyboardResponse);
