@@ -8,9 +8,9 @@ import cc.abro.telegramgamebot.services.TelegramReplyKeyboardService;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class MainMenuViewService {
@@ -43,17 +43,19 @@ public class MainMenuViewService {
     }
 
     public ViewResponse getMainMenuCharactersView(Account account) {
-        String characterNames = characterService.getAllCharacters(account.getPlayer()).stream()
+        String textResponse = localizationService.getView(account, "character_list");
+
+        List<String> charactersNames = characterService.getAllCharacters(account.getPlayer()).stream()
                 .sorted((c1, c2) ->
                         Comparator.comparing(Character::isMainCharacter)
                         .thenComparing(Character::getName)
                         .compare(c1, c2))
                 .map(Character::getName)
-                .collect(Collectors.joining("\n"));
-        String textResponse = localizationService.getView(account, "character_list", characterNames);
+                .toList();
+        List<String> buttons = new ArrayList<>(charactersNames);
+        buttons.add(localizationService.getButton(account, "back"));
+        ReplyKeyboard keyboardResponse = telegramReplyKeyboardService.createReplyKeyboardHorizontal(buttons);
 
-        ReplyKeyboard keyboardResponse = telegramReplyKeyboardService.createReplyKeyboardHorizontal(
-                localizationService.getButton(account, "back"));
         return new ViewResponse(textResponse, keyboardResponse);
     }
 
