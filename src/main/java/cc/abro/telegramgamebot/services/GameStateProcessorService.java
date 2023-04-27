@@ -50,7 +50,7 @@ public class GameStateProcessorService {
         } catch (RuntimeException e) {
             log.error("Exception while process GameState: " + currentGameState + ", Account: " + account.getId(), e);
             gameStateResponse = new GameStateResponse(GameState.MAIN_MENU, "Произошла неизвестная ошибка.",
-                    mainMenuViewService.getMainMenuCharactersView(account));
+                    mainMenuViewService.getMainMenuView(account));
         }
         if (gameStateResponse == null) {
             return new TelegramResponse("Недопустимый ввод", null);
