@@ -1,6 +1,7 @@
 package cc.abro.telegramgamebot.services.gamestates;
 
 import cc.abro.telegramgamebot.db.entity.Account;
+import cc.abro.telegramgamebot.model.Race;
 import cc.abro.telegramgamebot.services.CharacterService;
 import cc.abro.telegramgamebot.services.LocalizationService;
 import cc.abro.telegramgamebot.services.view.MainMenuViewService;
@@ -49,10 +50,10 @@ public class NewPlayerStateService implements GameStateService {
                     localizationService.getText(account, "new_player.error.latin_only"));
         }
 
-        characterService.createMainCharacter(account.getPlayer(), nickname);
+        characterService.createMainCharacter(account.getPlayer(), nickname, Race.HUMAN);
         return new GameStateResponse(GameState.MAIN_MENU,
                 localizationService.getText(account, "new_player.success", nickname),
-                mainMenuViewService.getMainMenuView(account));
+                mainMenuViewService.getMainMenuView(account, characterService.getCountCharacters(account.getPlayer())));
     }
 
     @Override

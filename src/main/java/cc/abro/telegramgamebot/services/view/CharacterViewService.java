@@ -20,7 +20,10 @@ public class CharacterViewService {
     }
 
     public ViewResponse getCharacterView(Account account, Character character) {
-        String textResponse = localizationService.getView(account, "character", character.getName());
+        String race = localizationService.getText(account,
+                "race." + character.getRace().toString().toLowerCase() + ".name");
+        String textResponse = localizationService.getView(account, "character",
+                character.getName(), race.toLowerCase());
 
         ReplyKeyboard keyboardResponse = telegramReplyKeyboardService.createReplyKeyboardHorizontal(
                 localizationService.getButton(account, "back"));

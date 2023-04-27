@@ -5,6 +5,7 @@ import cc.abro.telegramgamebot.services.gamestates.GameState;
 import cc.abro.telegramgamebot.services.gamestates.GameStateResponse;
 import cc.abro.telegramgamebot.services.gamestates.GameStateService;
 import cc.abro.telegramgamebot.services.view.MainMenuViewService;
+import cc.abro.telegramgamebot.services.view.ViewResponse;
 import cc.abro.telegramgamebot.telegram.TelegramResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
@@ -22,15 +23,18 @@ public class GameStateProcessorService {
     private final ApplicationContext context;
     private final AccountService accountService;
     private final MainMenuViewService mainMenuViewService;
+    private final CharacterService characterService;
 
     private final Map<GameState, GameStateService> serviceByGameState = new HashMap<>();
 
     public GameStateProcessorService(ApplicationContext context,
                                      AccountService accountService,
-                                     MainMenuViewService mainMenuViewService) {
+                                     MainMenuViewService mainMenuViewService,
+                                     CharacterService characterService) {
         this.context = context;
         this.accountService = accountService;
         this.mainMenuViewService = mainMenuViewService;
+        this.characterService = characterService;
     }
 
     @EventListener(ContextRefreshedEvent.class)
@@ -49,8 +53,10 @@ public class GameStateProcessorService {
             gameStateResponse = serviceByGameState.get(currentGameState).processMessage(account, message);
         } catch (RuntimeException e) {
             log.error("Exception while process GameState: " + currentGameState + ", Account: " + account.getId(), e);
+            ViewResponse viewResponse = mainMenuViewService.getMainMenuView(account,
+                    characterService.getCountCharacters(account.getPlayer()));
             gameStateResponse = new GameStateResponse(GameState.MAIN_MENU, "Произошла неизвестная ошибка.",
-                    mainMenuViewService.getMainMenuView(account));
+                    viewResponse);
         }
         if (gameStateResponse == null) {
             return new TelegramResponse("Недопустимый ввод", null);

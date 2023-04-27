@@ -39,7 +39,8 @@ public class MainMenuCharactersStateService implements GameStateService {
         }
 
         if (message.equals(localizationService.getButton(account, "back"))) {
-            return new GameStateResponse(GameState.MAIN_MENU, mainMenuViewService.getMainMenuView(account));
+            return new GameStateResponse(GameState.MAIN_MENU, mainMenuViewService.getMainMenuView(account,
+                    characterService.getCountCharacters(account.getPlayer())));
         }
         return null;
     }

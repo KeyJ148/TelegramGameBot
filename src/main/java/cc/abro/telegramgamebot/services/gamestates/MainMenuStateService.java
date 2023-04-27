@@ -34,7 +34,8 @@ public class MainMenuStateService implements GameStateService {
         }
         if (message.equals(localizationService.getButton(account, "characters"))) {
             return new GameStateResponse(GameState.MAIN_MENU_CHARACTERS,
-                    mainMenuViewService.getMainMenuCharactersView(account));
+                    mainMenuViewService.getMainMenuCharactersView(account,
+                            characterService.getAllCharacters(account.getPlayer())));
         }
         if (message.equals(localizationService.getButton(account, "zones"))) {
             return new GameStateResponse(GameState.MAIN_MENU_ZONES,
