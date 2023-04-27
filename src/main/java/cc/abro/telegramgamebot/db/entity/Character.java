@@ -1,5 +1,6 @@
 package cc.abro.telegramgamebot.db.entity;
 
+import cc.abro.telegramgamebot.model.Race;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -27,4 +28,5 @@ public class Character {
 
     private String name;
     private boolean isMainCharacter;
+    private Race race;
 }

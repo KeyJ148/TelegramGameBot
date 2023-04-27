@@ -3,6 +3,7 @@ package cc.abro.telegramgamebot.services;
 import cc.abro.telegramgamebot.db.entity.Character;
 import cc.abro.telegramgamebot.db.entity.Player;
 import cc.abro.telegramgamebot.db.repository.CharacterRepository;
+import cc.abro.telegramgamebot.model.Race;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,10 +17,11 @@ public class CharacterService {
         this.characterRepository = characterRepository;
     }
 
-    public void createMainCharacter(Player player, String nickname) {
+    public void createMainCharacter(Player player, String nickname, Race race) {
         Character character = Character.builder()
                 .player(player)
                 .name(nickname)
+                .race(race)
                 .isMainCharacter(true)
                 .build();
 
