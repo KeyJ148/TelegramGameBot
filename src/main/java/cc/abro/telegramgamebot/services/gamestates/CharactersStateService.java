@@ -28,7 +28,14 @@ public class CharactersStateService implements GameStateService {
     @Override
     public GameStateResponse processMessage(Account account, String message) {
         if (message.equals(localizationService.getButton(account, "back"))) {
-            return new GameStateResponse(GameState.MAIN_MENU, mainMenuViewService.getMainMenuView(account));
+            if (characterService.getCountCharacters(account.getPlayer()) == 1) {
+                return new GameStateResponse(GameState.MAIN_MENU, mainMenuViewService.getMainMenuView(account,
+                        characterService.getCountCharacters(account.getPlayer())));
+            } else {
+                return new GameStateResponse(GameState.MAIN_MENU_CHARACTERS,
+                        mainMenuViewService.getMainMenuCharactersView(account,
+                                characterService.getAllCharacters(account.getPlayer())));
+            }
         }
         return null;
     }
