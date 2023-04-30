@@ -2,8 +2,10 @@ package cc.abro.telegramgamebot.services;
 
 import cc.abro.telegramgamebot.db.entity.Account;
 import cc.abro.telegramgamebot.db.entity.Player;
+import cc.abro.telegramgamebot.db.entity.Zone;
 import cc.abro.telegramgamebot.db.repository.AccountRepository;
 import cc.abro.telegramgamebot.db.repository.PlayerRepository;
+import cc.abro.telegramgamebot.db.repository.ZoneRepository;
 import cc.abro.telegramgamebot.services.gamestates.GameState;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +17,14 @@ public class AccountService {
 
     private final AccountRepository accountRepository;
     private final PlayerRepository playerRepository;
+    private final ZoneRepository zoneRepository;
 
-    public AccountService(AccountRepository accountRepository, PlayerRepository playerRepository) {
+    public AccountService(AccountRepository accountRepository,
+                          PlayerRepository playerRepository,
+                          ZoneRepository zoneRepository) {
         this.accountRepository = accountRepository;
         this.playerRepository = playerRepository;
+        this.zoneRepository = zoneRepository;
     }
 
     public Account getOrCreateAccount(long telegramUserId) {
@@ -34,7 +40,13 @@ public class AccountService {
                     .player(player)
                     .build();
 
+            Zone zone = Zone.builder()
+                    .difficultInEnergy(0)
+                    .player(player)
+                    .build();
+
             playerRepository.save(player);
+            zoneRepository.save(zone);
             accountRepository.save(account);
         }
         return account;
