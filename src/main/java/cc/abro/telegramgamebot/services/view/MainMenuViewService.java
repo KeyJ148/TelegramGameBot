@@ -57,8 +57,12 @@ public class MainMenuViewService {
 
     public ViewResponse getMainMenuZonesView(Account account) {
         String textResponse = localizationService.getView(account, "zones");
+
+
         ReplyKeyboard keyboardResponse = telegramReplyKeyboardService.createReplyKeyboardHorizontal(
+                localizationService.getButton(account, "zones.new"),
                 localizationService.getButton(account, "back"));
+
         return new ViewResponse(textResponse, keyboardResponse);
     }
 }
