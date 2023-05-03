@@ -14,4 +14,8 @@ public interface CharacterRepository extends JpaRepository<Character, UUID> {
     List<Character> getCharactersByPlayer(Player player);
     int countCharactersByPlayer(Player player);
     Character getCharacterByPlayerAndIsMainCharacterIsTrue(Player player);
+
+    default Character getMainCharacter(Player player) {
+        return getCharacterByPlayerAndIsMainCharacterIsTrue(player);
+    }
 }

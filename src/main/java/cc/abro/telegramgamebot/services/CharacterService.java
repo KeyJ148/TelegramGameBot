@@ -33,7 +33,7 @@ public class CharacterService {
     }
 
     public Character getMainCharacter(Player player) {
-        return characterRepository.getCharacterByPlayerAndIsMainCharacterIsTrue(player);
+        return characterRepository.getMainCharacter(player);
     }
 
     public int getCountCharacters(Player player) {
