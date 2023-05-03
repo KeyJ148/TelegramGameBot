@@ -1,4 +1,4 @@
-package cc.abro.telegramgamebot.services;
+package cc.abro.telegramgamebot.services.entity;
 
 import cc.abro.telegramgamebot.db.entity.Character;
 import cc.abro.telegramgamebot.db.entity.Player;

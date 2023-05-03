@@ -1,6 +1,7 @@
 package cc.abro.telegramgamebot.services;
 
 import cc.abro.telegramgamebot.db.entity.Account;
+import cc.abro.telegramgamebot.services.entity.AccountService;
 import cc.abro.telegramgamebot.telegram.TelegramResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

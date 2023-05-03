@@ -1,6 +1,8 @@
 package cc.abro.telegramgamebot.services;
 
 import cc.abro.telegramgamebot.db.entity.Account;
+import cc.abro.telegramgamebot.services.entity.AccountService;
+import cc.abro.telegramgamebot.services.entity.CharacterService;
 import cc.abro.telegramgamebot.services.gamestates.GameState;
 import cc.abro.telegramgamebot.services.gamestates.GameStateResponse;
 import cc.abro.telegramgamebot.services.gamestates.GameStateService;

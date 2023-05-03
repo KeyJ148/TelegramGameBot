@@ -1,8 +1,8 @@
 package cc.abro.telegramgamebot.services.gamestates;
 
 import cc.abro.telegramgamebot.db.entity.Account;
-import cc.abro.telegramgamebot.services.CharacterService;
 import cc.abro.telegramgamebot.services.LocalizationService;
+import cc.abro.telegramgamebot.services.entity.CharacterService;
 import cc.abro.telegramgamebot.services.view.CharacterViewService;
 import cc.abro.telegramgamebot.services.view.MainMenuViewService;
 import org.springframework.stereotype.Service;

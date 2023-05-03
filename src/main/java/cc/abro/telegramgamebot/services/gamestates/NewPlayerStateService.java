@@ -2,8 +2,8 @@ package cc.abro.telegramgamebot.services.gamestates;
 
 import cc.abro.telegramgamebot.db.entity.Account;
 import cc.abro.telegramgamebot.model.Race;
-import cc.abro.telegramgamebot.services.CharacterService;
 import cc.abro.telegramgamebot.services.LocalizationService;
+import cc.abro.telegramgamebot.services.entity.CharacterService;
 import cc.abro.telegramgamebot.services.view.MainMenuViewService;
 import cc.abro.telegramgamebot.services.view.StartViewService;
 import cc.abro.telegramgamebot.telegram.TelegramBotInitializer;
